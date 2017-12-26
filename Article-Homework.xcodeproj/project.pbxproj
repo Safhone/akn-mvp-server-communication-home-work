@@ -114,11 +114,11 @@
 				A3E4EE051FECA13D00F21326 /* Applications */,
 				A3E4EE071FECA18000F21326 /* Asset */,
 				A3E4EE091FECA37700F21326 /* Controllers */,
+				A3E4EDF51FEC9A7E00F21326 /* Info.plist */,
 				A3E4EDFF1FECA0D500F21326 /* Models */,
 				A3E4EE021FECA0FE00F21326 /* Presenters */,
 				A3E4EE011FECA0EF00F21326 /* Services */,
 				A3E4EE001FECA0E500F21326 /* Views */,
-				A3E4EDF51FEC9A7E00F21326 /* Info.plist */,
 			);
 			path = "Article-Homework";
 			sourceTree = "<group>";

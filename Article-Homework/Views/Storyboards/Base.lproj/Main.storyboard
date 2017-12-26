@@ -131,6 +131,7 @@
                         <barButtonItem key="rightBarButtonItem" image="Icon-Notification" id="nUw-WD-oOz">
                             <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
+                                <action selector="saveUpdateBarButton:" destination="2c9-Z5-eNk" id="9gq-8J-u8M"/>
                                 <segue destination="bBj-36-woO" kind="show" id="hUZ-U9-7Kg"/>
                             </connections>
                         </barButtonItem>
@@ -141,13 +142,14 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aj2-dE-htC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="2c9-Z5-eNk" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1504.5" y="-0.5"/>
         </scene>
-        <!--Add-->
+        <!--Add Article View Controller-->
         <scene sceneID="I5f-2c-bkI">
             <objects>
-                <viewController id="bBj-36-woO" customClass="AddArticleViewController" customModule="Article_Homework" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addStoryBoardID" id="bBj-36-woO" customClass="AddArticleViewController" customModule="Article_Homework" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JRy-xm-l74">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -215,7 +217,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EoO-Ip-eF7"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Add" id="Git-bS-xxj">
+                    <navigationItem key="navigationItem" id="Git-bS-xxj">
                         <barButtonItem key="rightBarButtonItem" title="Save" id="sOd-4F-f46">
                             <connections>
                                 <action selector="saveArticleContent:" destination="bBj-36-woO" id="XUD-uN-gaB"/>
@@ -224,6 +226,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="articleTextView" destination="JYx-MN-rik" id="4e4-kw-0y0"/>
+                        <outlet property="barNavigationItem" destination="Git-bS-xxj" id="WZJ-iC-IeY"/>
                         <outlet property="titleTextField" destination="44E-73-uxH" id="3Fn-gS-ZhK"/>
                         <outlet property="uploadImageImgaeView" destination="bhr-Da-8Oi" id="1Rw-3W-hrp"/>
                     </connections>

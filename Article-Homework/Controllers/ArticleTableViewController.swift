@@ -30,14 +30,13 @@ class ArticleTableViewController: UIViewController {
         articlePresenter = ArticlePresenter()
         articlePresenter?.delegate = self
         
+        self.navigationController?.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        articles.removeAll()
-        increasePage = 1
-        articlePresenter?.getArticle(atPage: 1, withLimitation: 15)
-        newsTableView.reloadData()
+        self.navigationController?.navigationBar.topItem?.title = "Home"
     }
     
     lazy var refreshControl: UIRefreshControl = {
@@ -113,20 +112,34 @@ extension ArticleTableViewController: UITableViewDelegate, UITableViewDataSource
                 }))
                 alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
-
             }
             
             let edit = UITableViewRowAction(style: .normal, title: "Edit") { (action, index) in
-                
+                if let addViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "addStoryBoardID") as? AddArticleViewController {
+                    addViewController.newsID = self.articles[indexPath.item - 1].id!
+                    addViewController.newsImage = self.articles[indexPath.item - 1].image ?? "Not Available"
+                    addViewController.newsTitle = self.articles[indexPath.item - 1].title!
+                    addViewController.newsDescription = self.articles[indexPath.item - 1].description!
+                    addViewController.isUpdate = true
+                    if let navigator = self.navigationController {
+                        navigator.pushViewController(addViewController, animated: true)
+                    }
+                }
             }
-            
             return [delete, edit]
-            
         }
-        
         return []
     }
     
+}
+
+extension ArticleTableViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        articles.removeAll()
+        increasePage = 1
+        articlePresenter?.getArticle(atPage: 1, withLimitation: 15)
+        newsTableView.reloadData()
+    }
 }
 
 extension ArticleTableViewController: ArticlePresenterProtocol {

@@ -26,7 +26,7 @@ class NewsViewController: UIViewController {
         super.viewDidLoad()
         newsImageView.kf.setImage(with: URL(string: newsImage ?? "Not Available"), placeholder: #imageLiteral(resourceName: "no image"))
         newsTitleLabel.text = newsTitle
-        newsDateLabel.text = newsDate
+        newsDateLabel.text = newsDate?.formatDate(getTime: false)
         newsDescriptionTextView.text = newsDescription
         
         let imageLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(imageLongPressed))

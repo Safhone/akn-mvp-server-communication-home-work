@@ -79,7 +79,10 @@ class ArticleService {
                             Alamofire.request("\(self.url)/\(article.id!)", method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON { response in
                                 if response.result.isSuccess {
                                     print("Updated Success")
+                                } else if (response.result.error != nil) {
+                                    print(response.result.error?.localizedDescription)
                                 }
+                                
                             }
                         }
                     }

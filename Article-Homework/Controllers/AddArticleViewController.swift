@@ -8,12 +8,21 @@
 
 import UIKit
 import Photos
+import Kingfisher
 
 class AddArticleViewController: UIViewController {
 
     @IBOutlet weak var uploadImageImgaeView: UIImageView!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var articleTextView: UITextView!
+    @IBOutlet weak var barNavigationItem: UINavigationItem!
+    
+    var newsID: Int?
+    var newsImage: String?
+    var newsTitle: String?
+    var newsDescription: String?
+    var isUpdate: Bool = false
+    var isSave: Bool?
     
     var articlePresenter = ArticlePresenter()
     let imagePicker = UIImagePickerController()
@@ -32,11 +41,26 @@ class AddArticleViewController: UIViewController {
         NotificationCenter.default.addObserver(self,selector: #selector(keyboardWillShowForResizing), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideForResizing), name: Notification.Name.UIKeyboardWillHide, object: nil)
         
+        if isUpdate {
+            titleTextField.text = newsTitle!
+            articleTextView.text = newsDescription!
+            uploadImageImgaeView.kf.setImage(with: URL(string: newsImage! ), placeholder: #imageLiteral(resourceName: "no image"))
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationController?.navigationBar.topItem?.title = "Notes"
+        if isUpdate {
+            self.navigationController?.navigationBar.topItem?.title = "Update"
+            self.barNavigationItem.title = "Update"
+            isSave = false
+            return
+        } else {
+            self.navigationController?.navigationBar.topItem?.title = "Add"
+            self.barNavigationItem.title = "Add"
+            isSave = true
+        }
     }
     
     @IBAction func saveArticleContent(_ sender: Any) {
@@ -48,9 +72,12 @@ class AddArticleViewController: UIViewController {
         if articleTextView.text == nil || articleTextView.text?.trimmingCharacters(in: .whitespaces).count == 0 {
             articleTextView.text = "Don't have article"
         }
+        if isUpdate {
+            article.id = newsID!
+        }
         article.title = titleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         article.description = articleTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
-        articlePresenter.saveArticle(article: article, image: image!, isSave: true)
+        articlePresenter.saveArticle(article: article, image: image!, isSave: isSave!)
         
         self.navigationController?.popToRootViewController(animated: true)
     }
