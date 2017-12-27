@@ -28,7 +28,7 @@ extension Article: Mappable {
         title <- map["TITLE"]
         description <- map["DESCRIPTION"]
         created_date <- map["CREATED_DATE"]
-        image <- map["IMAGE"]
+        image <-  map["IMAGE"]
         pagination <- map["PAGINATION"]
     }
     

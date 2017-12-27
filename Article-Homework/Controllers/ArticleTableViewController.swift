@@ -95,7 +95,7 @@ extension ArticleTableViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let newsStoryboard = self.storyboard?.instantiateViewController(withIdentifier: "newsStoryboardID") as! NewsViewController
-        newsStoryboard.newsTitle = articles[indexPath.row - 1].title
+        newsStoryboard.newsTitle = articles[indexPath.row - 1].title?.trimmingCharacters(in: .whitespaces) == "" || articles[indexPath.item - 1].title?.trimmingCharacters(in: .whitespaces) == nil ? "Untitle" : articles[indexPath.item - 1].title
         newsStoryboard.newsDate = articles[indexPath.row - 1].created_date
         newsStoryboard.newsImage = articles[indexPath.row - 1].image
         newsStoryboard.newsDescription = articles[indexPath.row - 1].description
@@ -121,7 +121,7 @@ extension ArticleTableViewController: UITableViewDelegate, UITableViewDataSource
                 if let addViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "addStoryBoardID") as? AddArticleViewController {
                     addViewController.newsID = self.articles[indexPath.item - 1].id!
                     addViewController.newsImage = self.articles[indexPath.item - 1].image ?? "Not Available"
-                    addViewController.newsTitle = self.articles[indexPath.item - 1].title!
+                    addViewController.newsTitle = self.articles[indexPath.item - 1].title?.trimmingCharacters(in: .whitespaces) == "" || self.articles[indexPath.item - 1].title?.trimmingCharacters(in: .whitespaces) == nil ? "Untitle" : self.articles[indexPath.item - 1].title
                     addViewController.newsDescription = self.articles[indexPath.item - 1].description!
                     addViewController.isUpdate = true
                     if let navigator = self.navigationController {
