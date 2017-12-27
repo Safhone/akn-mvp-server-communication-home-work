@@ -30,7 +30,10 @@ class ArticleTableViewController: UIViewController {
         articlePresenter = ArticlePresenter()
         articlePresenter?.delegate = self
         
-        self.navigationController?.delegate = self
+        articles.removeAll()
+        increasePage = 1
+        articlePresenter?.getArticle(atPage: 1, withLimitation: 15)
+        newsTableView.reloadData()
         
     }
     
@@ -131,15 +134,6 @@ extension ArticleTableViewController: UITableViewDelegate, UITableViewDataSource
         return []
     }
     
-}
-
-extension ArticleTableViewController: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        articles.removeAll()
-        increasePage = 1
-        articlePresenter?.getArticle(atPage: 1, withLimitation: 15)
-        newsTableView.reloadData()
-    }
 }
 
 extension ArticleTableViewController: ArticlePresenterProtocol {

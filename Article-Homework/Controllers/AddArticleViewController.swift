@@ -32,11 +32,10 @@ class AddArticleViewController: UIViewController {
         checkPhotoLibraryPermission()
         imagePicker.delegate = self
         
-        let imageLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(imageLongPressed))
-        imageLongPressGesture.minimumPressDuration = 0.5
-        imageLongPressGesture.delegate = self
+        let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        imageTapGesture.delegate = self
         uploadImageImgaeView.isUserInteractionEnabled = true
-        uploadImageImgaeView.addGestureRecognizer(imageLongPressGesture)
+        uploadImageImgaeView.addGestureRecognizer(imageTapGesture)
         
         NotificationCenter.default.addObserver(self,selector: #selector(keyboardWillShowForResizing), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideForResizing), name: Notification.Name.UIKeyboardWillHide, object: nil)
@@ -99,12 +98,10 @@ class AddArticleViewController: UIViewController {
 }
 
 extension AddArticleViewController: UIGestureRecognizerDelegate {
-    @objc func imageLongPressed(press: UILongPressGestureRecognizer) {
-        if press.state == .began {
-            self.imagePicker.allowsEditing = false
-            self.imagePicker.sourceType = .photoLibrary
-            present(self.imagePicker, animated: true, completion: nil)
-        }
+    @objc func imageTapped(tap: UITapGestureRecognizer) {
+        self.imagePicker.allowsEditing = false
+        self.imagePicker.sourceType = .photoLibrary
+        present(self.imagePicker, animated: true, completion: nil)
     }
 }
 
